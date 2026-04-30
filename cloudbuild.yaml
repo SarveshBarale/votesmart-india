@@ -4,7 +4,7 @@ steps:
     args:
       - build
       - "--tag"
-      - "gcr.io/$PROJECT_ID/votesmart-india:$COMMIT_SHA"
+      - "gcr.io/$PROJECT_ID/votesmart-india:$BUILD_ID"
       - "--tag"
       - "gcr.io/$PROJECT_ID/votesmart-india:latest"
       - "--build-arg"
@@ -29,7 +29,7 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - push
-      - "gcr.io/$PROJECT_ID/votesmart-india:$COMMIT_SHA"
+      - "gcr.io/$PROJECT_ID/votesmart-india:$BUILD_ID"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -43,7 +43,7 @@ steps:
       - run
       - deploy
       - votesmart-india
-      - "--image=gcr.io/$PROJECT_ID/votesmart-india:$COMMIT_SHA"
+      - "--image=gcr.io/$PROJECT_ID/votesmart-india:$BUILD_ID"
       - "--region=asia-south1"
       - "--platform=managed"
       - "--allow-unauthenticated"
@@ -56,7 +56,7 @@ steps:
       - "--set-secrets=GOOGLE_CALENDAR_CLIENT_SECRET=GOOGLE_CALENDAR_CLIENT_SECRET:latest"
 
 images:
-  - "gcr.io/$PROJECT_ID/votesmart-india:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/votesmart-india:$BUILD_ID"
   - "gcr.io/$PROJECT_ID/votesmart-india:latest"
 
 substitutions:
