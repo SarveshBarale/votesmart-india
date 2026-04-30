@@ -25,6 +25,10 @@ export function useAuth() {
   });
 
   useEffect(() => {
+    if (!auth) {
+      setState({ user: null, loading: false, error: null });
+      return;
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setState({ user, loading: false, error: null });
     });
@@ -32,6 +36,10 @@ export function useAuth() {
   }, []);
 
   const signInWithGoogle = useCallback(async () => {
+    if (!auth) {
+      setState((prev) => ({ ...prev, error: "Firebase is not configured." }));
+      return;
+    }
     setState((prev) => ({ ...prev, loading: true, error: null }));
     try {
       const provider = new GoogleAuthProvider();
@@ -61,6 +69,7 @@ export function useAuth() {
   }, []);
 
   const signOut = useCallback(async () => {
+    if (!auth) return;
     try {
       await firebaseSignOut(auth);
     } catch (err) {
