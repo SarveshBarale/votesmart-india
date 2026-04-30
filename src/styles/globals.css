@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, sans-serif;
+  }
+
+  /* Smooth focus transitions */
+  *:focus-visible {
+    outline: 2px solid #003580;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Hide scrollbar utility for nav */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (forced-colors: active) {
+    .border-gray-200 {
+      border-color: ButtonBorder;
+    }
+    button {
+      forced-color-adjust: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Skip navigation link */
+  .skip-link {
+    @apply absolute -top-full left-0 bg-saffron-600 text-white px-4 py-2 z-[200] rounded-br-lg font-semibold text-sm;
+    transition: top 0.1s;
+  }
+  .skip-link:focus {
+    @apply top-0;
+  }
+
+  /* Tricolor gradient used across the app */
+  .tricolor-bar {
+    background: linear-gradient(90deg, #ff6200 33.3%, #ffffff 33.3% 66.6%, #138808 66.6%);
+  }
+}
