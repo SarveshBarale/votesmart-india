@@ -8,7 +8,7 @@ export function generateChecklist(profile: VoterProfile): ChecklistItem[] {
   const { state, isFirstTimeVoter, registrationStatus, needsAccessibilityAssistance, isNRI } =
     profile;
 
-  if (!state) return [];
+  if (!state || !registrationStatus) return [];
 
   const items: ChecklistItem[] = [];
 

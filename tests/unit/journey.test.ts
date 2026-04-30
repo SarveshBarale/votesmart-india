@@ -135,11 +135,9 @@ describe("countCriticalItems", () => {
     expect(count).toBe(highPrioTodos.length);
   });
 
-  it("returns 0 for fully registered voter with no issues", () => {
+  it("counts correctly for registered voter — id-ready and date-note are high priority todos", () => {
     const items = generateChecklist(BASE_PROFILE);
-    // reg-verified item should be done; id-ready and date-note are high priority todos
     const count = countCriticalItems(items);
-    // At least id-ready and date-note are high priority todos
     expect(count).toBeGreaterThanOrEqual(2);
   });
 
