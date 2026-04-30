@@ -13,35 +13,18 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Only initialize when the required config is present (guards SSG/SSR on Vercel)
-const hasConfig = Boolean(
-  firebaseConfig.apiKey &&
-  firebaseConfig.authDomain &&
-  firebaseConfig.projectId &&
-  firebaseConfig.appId
-);
+// Initialise once (handles Next.js hot-reload)
+const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-let app: FirebaseApp | null = null;
-let _auth: Auth | null = null;
-let _db: Firestore | null = null;
-
-if (hasConfig) {
-  app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  _auth = getAuth(app);
-  _db = getFirestore(app);
-}
-
-// Export as non-null — consumers are all "use client" components that only
-// run in the browser where env vars are always present via NEXT_PUBLIC_*
-export const auth = _auth as Auth;
-export const db = _db as Firestore;
+export const auth: Auth = getAuth(app);
+export const db: Firestore = getFirestore(app);
 
 // Analytics only in browser and only when measurementId is configured
 export let analytics: Analytics | null = null;
 
-if (typeof window !== "undefined" && hasConfig && process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID) {
+if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID) {
   isSupported().then((supported) => {
-    if (supported && app) {
+    if (supported) {
       analytics = getAnalytics(app);
     }
   });

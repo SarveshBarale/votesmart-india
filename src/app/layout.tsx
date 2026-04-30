@@ -19,10 +19,6 @@ export const metadata: Metadata = {
   },
   description:
     "An interactive, non-partisan platform to understand the complete Indian election process — voter registration, polling day, EVM, VVPAT, and more. Aligned with Election Commission of India guidelines.",
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-  },
   keywords: [
     "Indian elections",
     "voter registration",

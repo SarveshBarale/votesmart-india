@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Required for Docker / Cloud Run standalone output
-  output: "standalone",
   // Security headers
   async headers() {
     return [
